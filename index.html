@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>एक अधूरी कहानी — Prince & Anjali</title>
+<meta property="og:title" content="एक अधूरी कहानी — A Story of Unspoken Love">
+<meta property="og:description" content="A real love story. Ten years. One name. Never told.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1118;
+    --ink-soft: #3d2e3a;
+    --dust: #c9b8c4;
+    --blush: #e8c4c4;
+    --petal: #f5e6e8;
+    --page: #faf6f7;
+    --heart: #c0536a;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    position: relative;
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, #3d1a2e 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, #1e0d18 0%, transparent 60%);
+  }
+
+  .cover-petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    width: 6px;
+    height: 10px;
+    background: var(--blush);
+    border-radius: 50% 50% 50% 0;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0%   { opacity: 0; transform: translateY(-20px) rotate(0deg); }
+    10%  { opacity: 0.4; }
+    90%  { opacity: 0.15; }
+    100% { opacity: 0; transform: translateY(105vh) rotate(360deg); }
+  }
+
+  .cover-content { position: relative; z-index: 2; max-width: 360px; }
+
+  .cover-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dust);
+    margin-bottom: 1.5rem;
+  }
+
+  .cover-title {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 10vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--petal);
+    margin-bottom: 0.5rem;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--blush);
+  }
+
+  .cover-subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--dust);
+    margin-bottom: 2.5rem;
+  }
+
+  .cover-heart {
+    color: var(--heart);
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 2.5rem;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50%       { transform: scale(1.15); opacity: 1; }
+  }
+
+  .cover-scroll {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dust);
+    opacity: 0.6;
+    animation: bob 2s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(5px); }
+  }
+
+  /* ── EPIGRAPH ── */
+  .epigraph {
+    padding: 4rem 2rem;
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .epigraph blockquote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    border-left: 2px solid var(--blush);
+    padding-left: 1.5rem;
+    text-align: left;
+  }
+
+  /* ── CHAPTER ── */
+  .chapter {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .chapter.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .chapter-header {
+    margin-bottom: 2rem;
+  }
+
+  .chapter-number {
+    font-family: var(--serif);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--heart);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .chapter-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .chapter-subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--dust);
+    margin-top: 0.3rem;
+  }
+
+  .chapter-body p {
+    font-size: clamp(0.95rem, 3vw, 1.05rem);
+    color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+    line-height: 1.8;
+  }
+
+  .chapter-body p:first-child::first-letter {
+    font-family: var(--serif);
+    font-size: 3.2rem;
+    font-weight: 600;
+    float: left;
+    line-height: 0.75;
+    margin: 0.1em 0.08em 0 0;
+    color: var(--heart);
+  }
+
+  .chapter-body em {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    text-align: center;
+    padding: 1rem 0;
+    color: var(--blush);
+    font-size: 1.2rem;
+    letter-spacing: 0.5em;
+  }
+
+  .chapter-rule {
+    border: none;
+    border-top: 1px solid var(--blush);
+    max-width: 120px;
+    margin: 2.5rem auto;
+    opacity: 0.5;
+  }
+
+  /* ── HIGHLIGHT CARDS ── */
+  .moment-card {
+    background: var(--ink);
+    color: var(--petal);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .moment-card::before {
+    content: '♡';
+    position: absolute;
+    top: -10px;
+    right: 1.2rem;
+    font-size: 5rem;
+    color: var(--heart);
+    opacity: 0.08;
+    line-height: 1;
+  }
+
+  .moment-card p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.1rem, 4vw, 1.35rem);
+    line-height: 1.6;
+    color: var(--petal) !important;
+  }
+
+  /* ── EPILOGUE ── */
+  .epilogue {
+    background: var(--ink);
+    color: var(--petal);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .epilogue-inner {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .epilogue h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 7vw, 3rem);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: var(--blush);
+  }
+
+  .epilogue p {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--dust);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+
+  .epilogue-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    color: var(--petal);
+    border-top: 1px solid #3d2e3a;
+    border-bottom: 1px solid #3d2e3a;
+    padding: 1.5rem 0;
+    margin: 2rem 0;
+    line-height: 1.5;
+  }
+
+  .epilogue-sig {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--dust);
+    opacity: 0.7;
+    margin-top: 2rem;
+  }
+
+  .heart-final {
+    color: var(--heart);
+    font-size: 2rem;
+    display: block;
+    margin: 1.5rem auto 0;
+  }
+
+  /* ── SHARE FOOTER ── */
+  .share-footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    background: var(--page);
+  }
+
+  .share-label {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dust);
+    margin-bottom: 1rem;
+  }
+
+  .share-btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: var(--heart);
+    color: white;
+    text-decoration: none;
+    border-radius: 100px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(192, 83, 106, 0.3);
+  }
+
+  .share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(192, 83, 106, 0.4);
+  }
+
+  .share-url {
+    margin-top: 1rem;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--dust);
+  }
+
+  /* ── TIMELINE BAR ── */
+  .timeline-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--blush);
+    color: var(--heart);
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    .chapter { padding: 2.5rem 1.25rem; }
+    .moment-card { padding: 1.5rem 1.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .petal, .cover-heart, .cover-scroll { animation: none; }
+    .chapter { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-petals" id="petals"></div>
+  <div class="cover-content">
+    <p class="cover-eyebrow">A real story &nbsp;·&nbsp; Class 1 to Now</p>
+    <h1 class="cover-title">एक<br><em>अधूरी</em><br>कहानी</h1>
+    <p class="cover-subtitle">A Story of Unspoken Love</p>
+    <span class="cover-heart">♡</span>
+    <p class="cover-scroll">scroll to read ↓</p>
+  </div>
+</section>
+
+<!-- EPIGRAPH -->
+<div class="epigraph">
+  <blockquote>
+    "Some people are not meant to be yours.<br>
+    But they are meant to change you —<br>
+    quietly, completely, forever."
+  </blockquote>
+</div>
+
+<hr class="chapter-rule">
+
+<!-- PROLOGUE -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <span class="chapter-number">Prologue</span>
+    <h2 class="chapter-title">The Boy Who Never Said a Word</h2>
+  </div>
+  <div class="chapter-body">
+    <p>There are two kinds of love stories. The first kind is the one that gets told — at weddings, in songs, in movies where the boy gets the girl and the credits roll while the audience exhales with relief. The second kind is quieter.</p>
+    <p>It doesn't end with a kiss. It ends with a boy standing on a street in Sikar, watching the person he loved for a decade walk past with someone else — and somehow still not hating her.</p>
+    <p>This is the second kind. This is <em>Prince's</em> story.</p>
+  </div>
+</article>
+
+<hr class="chapter-rule">
+
+<!-- CH 1 -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <div class="timeline-pill">Class 1</div>
+    <span class="chapter-number">Chapter One</span>
+    <h2 class="chapter-title">First Sight</h2>
+    <p class="chapter-subtitle">The Beginning of Everything</p>
+  </div>
+  <div class="chapter-body">
+    <p>He was six years old. He didn't know what love was. He didn't even know her name yet. But something happened when he first saw <em>Anjali</em> across the classroom — something small and irreversible, like a single stitch pulled in the wrong direction that slowly unravels an entire sweater.</p>
+    <p>He would stare at her during class — not the stare of obsession, but the helpless stare of a child who has found something beautiful and doesn't know what to do about it. He'd watch her laugh and construct elaborate daydreams in his head. In those daydreams, he was always braver. He always walked up to her. He always said the right thing.</p>
+    <p>In real life, he said nothing.</p>
+    <p>Days became weeks. Weeks stacked into years. And Prince carried this quiet feeling inside him the way you carry a smooth stone in your pocket — you forget it's there sometimes, but your hand always finds it.</p>
+  </div>
+</article>
+
+<hr class="chapter-rule">
+
+<!-- CH 2 -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <div class="timeline-pill">Section Change</div>
+    <span class="chapter-number">Chapter Two</span>
+    <h2 class="chapter-title">The Other Side of the Wall</h2>
+    <p class="chapter-subtitle">When Sections Changed</p>
+  </div>
+  <div class="chapter-body">
+    <p>Then came the day the school reshuffled the sections. Different classrooms. Different roll numbers. Different worlds, separated by one thin wall and a hundred miles of courage Prince didn't have.</p>
+    <p>The daydreams didn't stop. If anything, distance made them louder. Now the glimpses were rationed — a hallway crossing, a shared staircase for two seconds, the back of her head in the morning assembly.</p>
+
+    <div class="moment-card">
+      <p>He learned to survive on very little. He collected moments the way other boys collected cricket cards — a glance here, a proximity there, a moment in the corridor that lasted four seconds and that he replayed for four months.</p>
+    </div>
+
+    <p>She still didn't know his name. That, perhaps, was the loneliest part.</p>
+  </div>
+</article>
+
+<hr class="chapter-rule">
+
+<!-- CH 3 -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <div class="timeline-pill">Class 9</div>
+    <span class="chapter-number">Chapter Three</span>
+    <h2 class="chapter-title">Aayush</h2>
+    <p class="chapter-subtitle">The Friend Who Became a Bridge</p>
+  </div>
+  <div class="chapter-body">
+    <p>By Class 9, the weight had become too heavy to carry alone. It was <em>Aayush</em> who noticed first — the way Prince's eyes tracked across any room Anjali entered. The way he went quiet at certain moments. The way he'd sometimes just stare at nothing, clearly somewhere else entirely.</p>
+    <p>One afternoon, Prince finally said it out loud. Her name. What he felt.</p>
+    <p>Aayush didn't laugh. Didn't tease. He listened — the way real friends listen, without immediately offering solutions, just absorbing the weight of the thing so the other person doesn't have to carry it alone.</p>
+    <p>And then, being Aayush, he rolled up his sleeves. He tried everything a loyal friend could try — conversations steered in the right direction, situations quietly arranged. He worked harder at this than Prince did, because that's what good friends do — they become heroes in stories that aren't even theirs.</p>
+    <p>But Anjali and Prince remained strangers. She still didn't know his name.</p>
+  </div>
+</article>
+
+<hr class="chapter-rule">
+
+<!-- CH 4 -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <div class="timeline-pill">Class 10</div>
+    <span class="chapter-number">Chapter Four</span>
+    <h2 class="chapter-title">The Notebook</h2>
+    <p class="chapter-subtitle">Aayush's Master Plan</p>
+  </div>
+  <div class="chapter-body">
+    <p>Class 10. Board year. Time running out. Aayush had an idea so simple it was almost embarrassing — he took Prince's notebook and quietly placed it on Anjali's bench before class.</p>
+    <p>The logic was clean: she'd have to return it. They'd have to talk. Something would happen.</p>
+    <p>It worked. Sort of. She returned it. A brief conversation happened — the kind that lasts maybe ninety seconds and means everything to one person and nothing to the other.</p>
+    <p>But in that exchange, something shifted. Anjali understood. Maybe it was the way Prince looked at her when she handed the notebook back. Maybe she had known for a while and just hadn't acknowledged it.</p>
+    <p>She knew, now. About the crush. About him.</p>
+  </div>
+</article>
+
+<hr class="chapter-rule">
+
+<!-- CH 5 — THE BIG ONE -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <div class="timeline-pill">Last Day of School</div>
+    <span class="chapter-number">Chapter Five</span>
+    <h2 class="chapter-title">The Chocolate, The Signature & The Heart</h2>
+    <p class="chapter-subtitle">The Moment He Will Never Forget</p>
+  </div>
+  <div class="chapter-body">
+    <p>It was the last day of school. It was also Anjali's birthday. Prince wasn't expecting anything. He had trained himself, across years of careful disappointment, to expect nothing. It was safer that way.</p>
+    <p>And then she came to him.</p>
+    <p>She walked up to Prince with a smile — not an awkward smile, not a pitying smile, but a real one — and gave him a chocolate. Then she picked up a marker and signed his shirt. Except she added something small at the end.</p>
+
+    <div class="moment-card">
+      <p>A little heart. ♡</p>
+      <p style="margin-top:0.8rem; font-size:0.9rem; opacity:0.7; font-style:normal; font-family: var(--sans);">She moved on to other conversations. For her, perhaps, it was a graceful goodbye. She didn't know what that little heart did to him.</p>
+    </div>
+
+    <p>Prince stood there holding a chocolate, wearing a shirt with her signature and a tiny heart, and every scenario he had ever imagined collapsed and rebuilt itself simultaneously.</p>
+    <p><em>Maybe she meant something by it. Maybe this was a beginning. Maybe.</em></p>
+    <p>He would spend a long time living inside that maybe.</p>
+  </div>
+</article>
+
+<hr class="chapter-rule">
+
+<!-- CH 6 -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <div class="timeline-pill">Class 11 — Sikar</div>
+    <span class="chapter-number">Chapter Six</span>
+    <h2 class="chapter-title">Sikar & Snapchat</h2>
+    <p class="chapter-subtitle">When Hope Wears a Different App</p>
+  </div>
+  <div class="chapter-body">
+    <p>Prince and Aayush left for Sikar. JEE preparation. Physics, Chemistry, Mathematics. A different life, a different city. Anjali went to Jaipur.</p>
+    <p>Prince had always hated Snapchat. He found it pointless, performative, unnecessary.</p>
+
+    <div class="moment-card">
+      <p>He downloaded it for her.</p>
+      <p style="margin-top:0.8rem; font-size:0.9rem; opacity:0.7; font-style:normal; font-family: var(--sans);">This small fact — a boy downloading an app he despised, for a girl who didn't know he was suffering — says more about love than most poetry ever could.</p>
+    </div>
+
+    <p>She eventually accepted the request. They started talking. But conversations have textures, and Prince could feel this one. Her replies came — polite, brief, perfectly pleasant — but there was no weight to them. No curiosity. No leaning-in.</p>
+    <p>Prince read the silence between her words correctly. He stopped.</p>
+  </div>
+</article>
+
+<hr class="chapter-rule">
+
+<!-- CH 7 -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <div class="timeline-pill">Class 12</div>
+    <span class="chapter-number">Chapter Seven</span>
+    <h2 class="chapter-title">The Second Time</h2>
+    <p class="chapter-subtitle">Because Once Is Never Enough When It's Real</p>
+  </div>
+  <div class="chapter-body">
+    <p>Class 12 arrived. The scenarios came back. They always come back. That's the thing nobody tells you about unresolved feelings — they don't rot, they don't fade cleanly, they just wait.</p>
+    <p>Prince re-downloaded Snapchat. Texted her again. She replied — still polite, still warm enough to feel like something. But she never started a conversation herself. Not once. He was always the one reaching across, and she was always the one receiving — not pushing away, but not reaching back either.</p>
+    <p>That asymmetry is its own kind of pain.</p>
+    <p>It was Aayush, again, who said what needed to be said.</p>
+
+    <div class="moment-card">
+      <p>"Just tell her. Say it out loud. Not to get her — but to get free."</p>
+    </div>
+
+    <p>So Prince confessed. He told her what he had been carrying since Class 1. Not in a dramatic declaration — just honestly, the way you eventually have to be honest when the weight gets too heavy.</p>
+    <p>She was kind about it. She said no.</p>
+  </div>
+</article>
+
+<hr class="chapter-rule">
+
+<!-- CH 8 -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <div class="timeline-pill">One Year Later</div>
+    <span class="chapter-number">Chapter Eight</span>
+    <h2 class="chapter-title">The Evening in Sikar</h2>
+    <p class="chapter-subtitle">The Wound That Reopened</p>
+  </div>
+  <div class="chapter-body">
+    <p>A year passed. Prince carried the rejection the way people carry old injuries — not always painful, but never fully healed. He had Aayush. He had his studies. He had the particular therapy of time.</p>
+    <p>Then, on one ordinary evening in Sikar — he was standing with Aayush and some friends on the street. And then he saw her.</p>
+    <p>Anjali. In Sikar now. And she wasn't alone.</p>
+    <p>The world didn't end. The sky didn't fall. Outwardly, nothing changed. But inside Prince, something cracked.</p>
+
+    <div class="moment-card">
+      <p>Not broke — cracked. There is a difference. Breaking is loud and final. Cracking is quiet and leaves the pieces still held together, just barely, in a shape that resembles what it was before.</p>
+    </div>
+
+    <p>Aayush was there. The friends were there. They said the right things, the kind things. It helped, the way presence always helps, even when it doesn't fix anything.</p>
+    <p>But some things cannot be consoled in a single evening.</p>
+  </div>
+</article>
+
+<hr class="chapter-rule">
+
+<!-- CH 9 -->
+<article class="chapter" data-chapter>
+  <div class="chapter-header">
+    <div class="timeline-pill">Now</div>
+    <span class="chapter-number">Chapter Nine</span>
+    <h2 class="chapter-title">Still</h2>
+    <p class="chapter-subtitle">The Part That Has No Resolution</p>
+  </div>
+  <div class="chapter-body">
+    <p>This is where most stories would end with a lesson. A moral. A neat conclusion where the character grows and the feelings fade and everything resolves into wisdom.</p>
+    <p>But real life is not that tidy.</p>
+    <p>Prince still feels it. Not the desperate storm of Class 9 or the fragile hope of that last school day — but something quieter and more stubborn. A deep feeling that has survived rejection, distance, a Snapchat he downloaded twice, a confession, and a street in Sikar on a regular evening.</p>
+    <p>There is nothing wrong with Prince. Loving someone who doesn't love you back is not a flaw. It is one of the most human things a person can do — to give something genuine to someone without the promise of it being returned.</p>
+    <p>The tragedy is not that Anjali didn't love him. The tragedy is that he was too good at loving quietly.</p>
+  </div>
+</article>
+
+<!-- EPILOGUE -->
+<section class="epilogue">
+  <div class="epilogue-inner">
+    <h2>A Note to Prince</h2>
+    <p>The love you gave, even unanswered, was real. It shaped you. It made you the kind of person who notices details, who builds worlds inside his head, who is capable of ten years of loyalty to a single feeling.</p>
+    <p>That is not nothing. That is, in fact, everything.</p>
+    <p>Anjali may have moved on. She may never have known the full weight of what she carried — briefly, unknowingly — in someone else's life.</p>
+    <p>But you, Prince, know what it feels like to love something completely. Not everyone does.</p>
+    <p>And one day — not today, maybe not soon — someone will walk into your life and be standing close enough to receive what you've always had to give.</p>
+    <p>Until then, you are allowed to feel it. You are allowed to be unfinished.</p>
+
+    <div class="epilogue-quote">
+      "Not all love stories end with the two people together.<br>
+      Some end with one person becoming who they were supposed to be."
+    </div>
+
+    <p class="epilogue-sig">— Written for Prince, by his friend Aayush</p>
+    <p class="epilogue-sig" style="opacity:0.5;">Told with honesty, and a little heart</p>
+    <span class="heart-final">♡</span>
+  </div>
+</section>
+
+<!-- SHARE -->
+<div class="share-footer">
+  <p class="share-label">Share this story</p>
+  <button class="share-btn" onclick="shareStory()">Copy Link to Share</button>
+  <p class="share-url" id="share-msg" style="display:none; color: var(--heart);">Link copied! Paste it anywhere ♡</p>
+</div>
+
+<script>
+  // Falling petals
+  const container = document.getElementById('petals');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 15) + 's';
+    p.style.width = (4 + Math.random() * 5) + 'px';
+    p.style.height = (7 + Math.random() * 6) + 'px';
+    p.style.opacity = 0;
+    container.appendChild(p);
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[data-chapter]').forEach(el => observer.observe(el));
+
+  // Share
+  function shareStory() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      const msg = document.getElementById('share-msg');
+      msg.style.display = 'block';
+      setTimeout(() => msg.style.display = 'none', 3000);
+    }).catch(() => {
+      prompt('Copy this link:', url);
+    });
+  }
+</script>
+</body>
+</html>
